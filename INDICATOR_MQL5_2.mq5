@@ -1,5 +1,5 @@
 //+------------------------------------------------------------------+
-//|                                                MOZILA_ALERTA.mq5 |
+//|                                               INDICATOR_MQL5.mq5 |
 //|                                                    diegoPaladino |
 //|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
@@ -9,21 +9,23 @@
 #property indicator_chart_window
 
 //+------------------------------------------------------------------+
-//|  PROPRIEDADES DO INDICADOR                                       |
+//|   PROPRIEDADES DO INDICADOR                                      |
 //+------------------------------------------------------------------+
 #property indicator_buffers   1
 #property indicator_plots     1
 
-#property indicator_label1    "Teste"
-#property indicator_type1      DRAW_LINE
-#property indicator_style1     STYLE_SOLID
-#property indicator_color1     clrAliceBlue
-#property indicator_width1     2
+#property indicator_label1    "teste2"
+#property indicator_type1     DRAW_LINE
+#property indicator_style1    STYLE_SOLID
+#property indicator_color1    clrGreen
+#property indicator_width1    2
+
 
 //+------------------------------------------------------------------+
 //|  VARIAVEIS GLOBAIS                                               |
 //+------------------------------------------------------------------+
-double indBuffer[]; //--- buffer do indicador
+double indBuffer[];
+
 
 //+------------------------------------------------------------------+
 //| Custom indicator initialization function                         |
@@ -34,8 +36,7 @@ int OnInit()
    SetIndexBuffer(0,indBuffer,INDICATOR_DATA);
 //---
    ArrayInitialize(indBuffer,EMPTY_VALUE);
-//---
-
+//
    return(INIT_SUCCEEDED);
   }
 //+------------------------------------------------------------------+
@@ -53,13 +54,13 @@ int OnCalculate(const int rates_total,
                 const int &spread[])
   {
 //---
-if(prev_calculated==0)
-{
-  for(int i=0;i<rates_total;i++)   //en todas as barras disponiveis no grafico
-    {
-    indBuffer[i] = close[i];
-    }
-}
+   if(prev_calculated==0)
+     {
+      for(int i=0;i<rates_total;i++)
+        {
+         indBuffer[i] = close[i];
+        }
+     }
 //--- return value of prev_calculated for next call
    return(rates_total);
   }
