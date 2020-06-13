@@ -17,7 +17,7 @@
 #property indicator_label1    "teste2"
 #property indicator_type1     DRAW_LINE
 #property indicator_style1    STYLE_SOLID
-#property indicator_color1    clrGreen
+#property indicator_color1    clrRed
 #property indicator_width1    2
 
 
@@ -53,14 +53,21 @@ int OnCalculate(const int rates_total,
                 const long &volume[],
                 const int &spread[])
   {
-//---
+//--- PRIMEIRA PLOTAGEM DO INDICADOR
    if(prev_calculated==0)
      {
       for(int i=0;i<rates_total;i++)
         {
-         indBuffer[i] = close[i];
+         indBuffer[i] = (high[i]+low[i])/2;
         }
      }
+     
+//--- DEMAIS PLOTAGENS DO INDICADOR
+   else
+     {
+      indBuffer[rates_total-1]= (high[rates_total]+low[rates_total])/2;
+     }
+
 //--- return value of prev_calculated for next call
    return(rates_total);
   }
