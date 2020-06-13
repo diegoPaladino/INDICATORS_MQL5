@@ -7,7 +7,6 @@
 #property link      "https://www.mql5.com"
 #property version   "1.00"
 #property indicator_separate_window
-
 //+------------------------------------------------------------------+
 //|   PROPRIEDADES DO INDICADOR                                      |
 //+------------------------------------------------------------------+
@@ -17,7 +16,7 @@
 #property indicator_label1    "teste2"
 #property indicator_type1     DRAW_COLOR_HISTOGRAM
 #property indicator_style1    STYLE_SOLID
-#property indicator_color1    clrRed,clrBlue
+#property indicator_color1    clrGreen,clrRed
 #property indicator_width1    2
 
 
