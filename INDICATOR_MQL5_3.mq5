@@ -6,25 +6,26 @@
 #property copyright "diegoPaladino"
 #property link      "https://www.mql5.com"
 #property version   "1.00"
-#property indicator_chart_window
+#property indicator_separate_window
 
 //+------------------------------------------------------------------+
 //|   PROPRIEDADES DO INDICADOR                                      |
 //+------------------------------------------------------------------+
-#property indicator_buffers   1
+#property indicator_buffers   2
 #property indicator_plots     1
 
 #property indicator_label1    "teste2"
-#property indicator_type1     DRAW_LINE
+#property indicator_type1     DRAW_COLOR_HISTOGRAM
 #property indicator_style1    STYLE_SOLID
-#property indicator_color1    clrBlueViolet
+#property indicator_color1    clrRed,clrBlue
 #property indicator_width1    2
 
 
 //+------------------------------------------------------------------+
 //|  VARIAVEIS GLOBAIS                                               |
 //+------------------------------------------------------------------+
-double indBuffer[];
+double indBuffer[]; //Buffer do indicador
+double indColor[];  //Buffer de cor
 
 
 //+------------------------------------------------------------------+
@@ -34,8 +35,10 @@ int OnInit()
   {
 //--- indicator buffers mapping
    SetIndexBuffer(0,indBuffer,INDICATOR_DATA);
+   SetIndexBuffer(1,indColor,INDICATOR_COLOR_INDEX);
 //---
    ArrayInitialize(indBuffer,EMPTY_VALUE);
+   ArrayInitialize(indColor,EMPTY_VALUE);
 //
    return(INIT_SUCCEEDED);
   }
@@ -58,14 +61,23 @@ int OnCalculate(const int rates_total,
      {
       for(int i=0;i<rates_total;i++)
         {
-         indBuffer[i] = (high[i]+low[i])/2;
+         if(close[i] > open[i])
+           {
+            indBuffer[i] = volume[i];
+            indColor[i]=0;
+           }
+         else
+           {
+            indBuffer[i] = volume[i];
+            indColor[i]=1;
+           }
         }
      }
      
 //--- DEMAIS PLOTAGENS DO INDICADOR
    else
      {
-      indBuffer[rates_total-1] = (high[rates_total]+low[rates_total])/2;
+      indBuffer[rates_total-1] = volume[rates_total-1];
      }
 
 //--- return value of prev_calculated for next call
