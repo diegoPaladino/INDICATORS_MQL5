@@ -7,6 +7,10 @@
 #property link      "https://www.mql5.com"
 #property version   "1.00"
 #property indicator_chart_window
+
+MqlRates candle[];
+
+
 //+------------------------------------------------------------------+
 //| Custom indicator initialization function                         |
 //+------------------------------------------------------------------+
