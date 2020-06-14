@@ -24,12 +24,21 @@
 #property indicator_height    1
 
 //+------------------------------------------------------------------+
+//|  VARIAVEIS GLOBAIS                                               |
+//+------------------------------------------------------------------+
+
+double indBuffer[];  
+
+//+------------------------------------------------------------------+
 //| Custom indicator initialization function                         |
 //+------------------------------------------------------------------+
 int OnInit()
   {
 //--- indicator buffers mapping
+   SetIndexBuffer(0,indBuffer,INDICATOR_DATA);
    
+//---
+   ArrayInitialize(indBuffer,EMPTY_VALUE);
 //---
    return(INIT_SUCCEEDED);
   }
@@ -48,7 +57,13 @@ int OnCalculate(const int rates_total,
                 const int &spread[])
   {
 //---
-   
+   if(prev_calculated==0)
+     {
+      for(int i=0;i<rates_total;i++)
+        {
+         indBuffer[i]=close[i];
+        }
+     }
 //--- return value of prev_calculated for next call
    return(rates_total);
   }
